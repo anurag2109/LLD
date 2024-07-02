@@ -5,21 +5,15 @@ public abstract class Logger {
     public static final int DEBUG = 2;
     public static final int ERROR = 3;
 
-    protected int level;
-
     Logger nextLogger;
 
-    public void setNextLogger(Logger logger){
-        this.nextLogger = logger;
+    public Logger(Logger nextLogger) {
+        this.nextLogger = nextLogger;
     }
 
-    public void logMessage(int level, String msg){
-        if(this.level >= level){
-            write(msg);
-        }
-        else if(nextLogger != null){
-            nextLogger.logMessage(level, msg);
+    public void log(int logLevel, String message){
+        if(nextLogger != null){
+            nextLogger.log(logLevel, message);
         }
     }
-    protected abstract void write(String message);
 }
